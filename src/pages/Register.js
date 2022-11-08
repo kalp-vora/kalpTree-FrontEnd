@@ -14,7 +14,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 // REACT IMPORTS
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 // PERSONAL IMPORTS
 import Roles from "../utils/Roles";
@@ -23,12 +23,8 @@ import errorMessages from "../utils/Messages";
 import UserMiddleware from "../middleware/UserMiddleware";
 import { useNavigate } from "react-router";
 import Status from "../utils/Status";
-import { GlobalContext } from "../contexts/GlobalContext";
-import ActionTypes from "../utils/ActionTypes";
 
 const Register = () => {
-  const { authDispatch } = useContext(GlobalContext);
-
   // INITIAL STATE
   let initialState = {
     firstName: "",
@@ -53,6 +49,8 @@ const Register = () => {
 
   const [user, setUser] = useState(initialState);
   const [isError, setIsError] = useState(initialErrorState);
+
+  const navigate = useNavigate();
 
   const navigateToLogin = () => {
     navigate("/login");
@@ -89,8 +87,6 @@ const Register = () => {
     setIsError(initialErrorState);
   };
 
-  const navigate = useNavigate();
-
   // HANDLE SUBMIT
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -103,18 +99,7 @@ const Register = () => {
           console.log(status);
           console.log(data.message);
           console.log(data.data);
-          const registeredUser = data.data;
           if (parseInt(status) === Status.CREATED) {
-            // DISPATCHING USER ID
-            authDispatch({
-              type: ActionTypes.SET_USERID,
-              payload: registeredUser.userId,
-            });
-            // DISPATCHING ROLE
-            authDispatch({
-              type: ActionTypes.SET_ROLE,
-              payload: registeredUser.role,
-            });
             // CLEARING STATE AND ERROR
             setUser(initialState);
             setIsError(initialErrorState);

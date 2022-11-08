@@ -1,5 +1,6 @@
 import { Button, Container, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router";
 import { GlobalContext } from "../contexts/GlobalContext";
 import AuthMiddleware from "../middleware/AuthMiddleware";
 import ActionTypes from "../utils/ActionTypes";
@@ -14,6 +15,12 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
 
+  const navigate = useNavigate();
+
+  const navigateToDashboard = () => {
+    navigate("/user/dashboard");
+  };
+
   const handleLogin = (event) => {
     event.preventDefault();
     const isValid = validate();
@@ -25,12 +32,24 @@ const Login = () => {
           console.log(status);
           console.log(data.message);
           console.log(data.data);
-          const token = data.data;
+          const { token, role, userId, email } = data.data;
           if (parseInt(status) === Status.OK) {
+            // DISPATCHING ROLE
+            authDispatch({
+              type: ActionTypes.SET_ROLE,
+              payload: role,
+            });
+            // DISPATRCHING USERID
+            authDispatch({
+              type: ActionTypes.SET_USERID,
+              payload: userId,
+            });
+            // DISPATCHING TOKEN
             authDispatch({
               type: ActionTypes.SET_TOKEN,
               payload: token,
             });
+            // DISPATCHING AUTHENTICATION
             authDispatch({
               type: ActionTypes.SET_AUTHENTICATED,
               payload: true,
@@ -41,11 +60,12 @@ const Login = () => {
             setPassword("");
             setIsError(false);
 
-            // NAVIGATE TO
+            // NAVIGATE TO DASHBOARD
+            navigateToDashboard();
           }
         },
         ({ response }) => {
-          if (parseInt(response.status) === Status.BAD_CREDENTIALS) {
+          if (parseInt(response.status) === Status.UNAUTHORISED) {
             console.log(response.data.message);
           }
         }
