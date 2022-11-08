@@ -17,14 +17,14 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useContext, useState } from "react";
 
 // PERSONAL IMPORTS
-import Roles from "../../utils/Roles";
-import Regex from "../../utils/Regex";
-import errorMessages from "../../utils/Messages";
-import UserMiddleware from "../../middleware/UserMiddleware";
+import Roles from "../utils/Roles";
+import Regex from "../utils/Regex";
+import errorMessages from "../utils/Messages";
+import UserMiddleware from "../middleware/UserMiddleware";
 import { useNavigate } from "react-router";
-import Status from "../../utils/Status";
-import { GlobalContext } from "../../contexts/GlobalContext";
-import ActionTypes from "../../utils/ActionTypes";
+import Status from "../utils/Status";
+import { GlobalContext } from "../contexts/GlobalContext";
+import ActionTypes from "../utils/ActionTypes";
 
 const Register = () => {
   const { authDispatch } = useContext(GlobalContext);

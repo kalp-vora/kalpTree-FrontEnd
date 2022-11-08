@@ -1,9 +1,9 @@
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router";
-import Home from "./pages/Home/Home";
-import Register from "./pages/Register/Register";
-import Login from "./pages/Login/Login";
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import { GlobalContextProvider } from "./contexts/GlobalContext";
 
 function App() {

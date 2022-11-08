@@ -1,11 +1,11 @@
 import { Button, Container, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { GlobalContext } from "../../contexts/GlobalContext";
-import AuthMiddleware from "../../middleware/AuthMiddleware";
-import ActionTypes from "../../utils/ActionTypes";
-import errorMessages from "../../utils/Messages";
-import Regex from "../../utils/Regex";
-import Status from "../../utils/Status";
+import { GlobalContext } from "../contexts/GlobalContext";
+import AuthMiddleware from "../middleware/AuthMiddleware";
+import ActionTypes from "../utils/ActionTypes";
+import errorMessages from "../utils/Messages";
+import Regex from "../utils/Regex";
+import Status from "../utils/Status";
 
 const Login = () => {
   const { authDispatch } = useContext(GlobalContext);
