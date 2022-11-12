@@ -38,12 +38,19 @@ const WriteBlog = () => {
   };
 
   const handlePublish = (event, isPublish) => {
-    console.log("BUTTON CLICKED");
     event.preventDefault();
     if (isPublish) {
-      setBlog({ ...blog, isPublished: true });
+      setBlog({ ...blog, isPublished: true, publishDateTime: new Date() });
     }
-    BlogMiddleware.addBlog(blog);
+    BlogMiddleware.addBlog(
+      blog,
+      ({ data }) => {
+        console.log(data);
+      },
+      ({ response }) => {
+        console.log(response);
+      }
+    );
   };
 
   const [blog, setBlog] = useState(initialState);
