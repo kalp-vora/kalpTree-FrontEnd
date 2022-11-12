@@ -7,6 +7,7 @@ import ActionTypes from "../utils/ActionTypes";
 import errorMessages from "../utils/Messages";
 import Regex from "../utils/Regex";
 import Status from "../utils/Status";
+import SessionStorage from "../contexts/SessionStorage";
 
 const Login = () => {
   const { authDispatch } = useContext(GlobalContext);
@@ -54,6 +55,9 @@ const Login = () => {
               type: ActionTypes.SET_AUTHENTICATED,
               payload: true,
             });
+
+            // SETTING THE SESSION
+            SessionStorage.setUserSession(userId, token, role, true);
 
             // CLEARING STATE & ERRORS
             setEmail("");
