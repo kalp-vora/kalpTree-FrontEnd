@@ -1,21 +1,17 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { GlobalContext } from "../contexts/GlobalContext";
 import SessionStorage from "../contexts/SessionStorage";
 
 const PrivateRoute = ({ children }) => {
-  //   const { authState } = useContext(GlobalContext);
   const { authenticated } = SessionStorage.getUserSession();
-
   const navigate = useNavigate();
+
   useEffect(() => {
-    // if (!authState.authenticated) {
-    //   navigate("/login");
-    // }
     if (!authenticated) {
+      SessionStorage.clearUserSession();
       navigate("/login");
     }
-  }, [authenticated]);
+  }, [authenticated, navigate]);
 
   return authenticated && children;
 };

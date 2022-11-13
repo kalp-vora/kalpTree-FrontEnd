@@ -29,6 +29,18 @@ const BlogMiddleware = {
         onError(error);
       });
   },
+  getBlogById: (onSuccess = () => {}, onError = () => {}) => {
+    const { userId } = SessionStorage.getUserSession();
+    BlogServices.getBlogByUserId(userId)
+      .then((data) => {
+        console.log(data);
+        onSuccess(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        onError(error);
+      });
+  },
 };
 
 export default BlogMiddleware;

@@ -8,6 +8,7 @@ import { GlobalContextProvider } from "./contexts/GlobalContext";
 import Dashboard from "./pages/User/Dashboard";
 import PrivateRoute from "./routes/PrivateRouter";
 import WriteBlog from "./pages/User/WriteBlog";
+import Workspace from "./pages/User/Workspace";
 
 function App() {
   return (
@@ -35,10 +36,21 @@ function App() {
               </PrivateRoute>
             }
           ></Route>
+          <Route
+            path="/user/workspace"
+            element={
+              <PrivateRoute>
+                <Workspace />
+              </PrivateRoute>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </GlobalContextProvider>
   );
 }
 
+/*
+  TODO: check if storing token, userId, role safe in session storage
+*/
 export default App;
